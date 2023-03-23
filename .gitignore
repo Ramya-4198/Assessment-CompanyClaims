@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.dll
+/DataLayer/obj/Debug/net7.0
+/DataLayer/bin/Debug/net7.0
+/DataLayer/obj
+/CompanyClaims/obj
+/.vs
+/CompanyClaims/bin/Debug/net7.0
