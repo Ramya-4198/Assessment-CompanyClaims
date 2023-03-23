@@ -3,9 +3,11 @@
 ################################################################################
 
 *.dll
-/DataLayer/obj/Debug/net7.0
-/DataLayer/bin/Debug/net7.0
+/DataLayer/obj
+/DataLayer/bin
 /DataLayer/obj
 /CompanyClaims/obj
 /.vs
-/CompanyClaims/bin/Debug/net7.0
+/CompanyClaims/bin
+/EndpointTests/bin/Debug/net7.0
+/EndpointTests/obj
