@@ -18,3 +18,12 @@ For the update claim endpoint I've used fluent validation to apply some rudiment
 
 I've done a few unit tests on the Update claim end point - they are by no means exhaustive.  With more time I would have tested all the endpoints as well as the validation rules.  The errors for the validation rules are hard-coded - and I would usually take those out into separate string constants to allow me to reference them in tests etc. as well as to make sure they're consistent.
 
+## Missing
+
+In a full solution there are a couple of things that I would have included.
+
+The first is some Authentication/Authorisation on the different methods - this assuming that the API is deployed to the wider web and isn't published internally or behind an API Gateway or something.
+
+Second, I added a 'Company Name' property to the claim for informational purposes - I think this would have been better as a URL to the actual company record on the /company/{id} end point.  I would have also done this in the 'get all claims' end point which supports paging to give the URL for the last and previous pages.  In fact both the endpoints that return lists I would have wrapped in a containing object so I could add some meta-data about the results returned, e.g. page information and total records returned / available.
+
+Third, I've tried to only implement the endpoints required for the solution - I've not implemented any CREATE endpoints.  Just a note on this I wouldn't generally expose an API as simple CRUD operations - I would want the API to reflect actual business flows.  For example, I wouldn't usually have a blanket claims update - but several endpoints that would do operations like 'Settle Claim'.  The consumer of the API would then provide only pertinent information to complete that transaction - such as settlement amount, settlement date and a comment.  In a similar vein, the CREATE Claim operation would actually be something like a notification of loss operation rather than a straightforward DB insert.
