@@ -53,7 +53,7 @@ public class ClaimsRepository : IClaimsRepository
     {
         var result = ClaimStore.Select(kv => kv.Value);
 
-        page = page < 1 ? 1 : page;
+        page = page < 1 ? 0 : page - 1;
         pageSize = pageSize < 1 ? 30 : pageSize;
         result = result.Skip(page * pageSize).Take(pageSize);
 

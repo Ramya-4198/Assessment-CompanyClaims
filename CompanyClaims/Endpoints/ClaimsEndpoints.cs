@@ -29,7 +29,7 @@ namespace CompanyClaims.Endpoints
             
             var claims = await repository.GetClaimsByCompanyId(companyId);
 
-            var result = claims.Select(c => c.ToDto(company, "")).ToList();
+            var result = claims.Select(c => c.ToDto(company)).ToList();
 
             return Results.Ok(result);
         }
@@ -41,7 +41,7 @@ namespace CompanyClaims.Endpoints
             var result = claims.Select(async c =>
             {
                 var company = await companyRepository.GetCompany(c.CompanyId);
-                return c.ToDto(company, "");
+                return c.ToDto(company);
             }).Select(t => t.Result).ToList();
 
             return Results.Ok(result);
@@ -59,7 +59,7 @@ namespace CompanyClaims.Endpoints
             var company = await companyRepository.GetCompany(claim.CompanyId);
 
 
-            return Results.Ok(claim.ToDto(company, ""));
+            return Results.Ok(claim.ToDto(company));
         }
 
         public static async Task<IResult> GetCompanyById(int companyId, ICompanyRepository repository)
@@ -95,7 +95,7 @@ namespace CompanyClaims.Endpoints
             if (updatedClaim is null)
                 return Results.NotFound("Unable to retrieve the claim after update.");
 
-            return Results.Ok(updatedClaim.ToDto(company, ""));
+            return Results.Ok(updatedClaim.ToDto(company));
         }
     }
 }

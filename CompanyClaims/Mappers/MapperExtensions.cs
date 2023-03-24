@@ -1,18 +1,17 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using DataLayer.Entities;
+﻿using DataLayer.Entities;
 
 namespace CompanyClaims.Mappers;
 
 public static class MapperExtensions
 {
 
-    public static ClaimDto ToDto(this Claim claim, Company company, string claimType) 
+    public static ClaimDto ToDto(this Claim claim, Company company)
         => new(claim.Ucr, claim.CompanyId, claim.ClaimDate,
             claim.LossDate, claim.AssuredName,
-            claim.IncurredLoss, claim.Closed, company.Name, claimType,
+            claim.IncurredLoss, claim.Closed, company.Name,
             (DateTime.Now.Date - claim.ClaimDate.Date).Days);
 
-    private static AddressDto ToDto(this Address address) 
+    private static AddressDto ToDto(this Address address)
         => new(address.Address1, address.Address2, address.Address3, address.Postcode, address.Country);
 
     public static CompanyDto ToDto(this Company company)
@@ -23,7 +22,6 @@ public static class MapperExtensions
         {
             AssuredName = claimDto.AssuredName,
             ClaimDate = claimDto.ClaimDate,
-            ClaimTypeName = claimDto.ClaimType,
             CompanyId = claimDto.CompanyId,
             Closed = claimDto.Closed,
             IncurredLoss = claimDto.IncurredLoss,
@@ -33,7 +31,7 @@ public static class MapperExtensions
 }
 
 public record ClaimDto(string Ucr, int CompanyId, DateTime ClaimDate, DateTime LossDate, string AssuredName,
-    decimal IncurredLoss, bool Closed, string CompanyName, string ClaimType, int AgeInDays);
+    decimal IncurredLoss, bool Closed, string CompanyName, int AgeInDays);
 
 
 public record AddressDto(string Address1, string Address2, string Address3, string Postcode, string Country);
