@@ -10,7 +10,7 @@ public class Claim
     public decimal IncurredLoss { get; set; }
     public int ClaimTypeId { get; set; }
     public string ClaimTypeName { get; set; }
-    public bool IsClosed { get; set; }
+    public bool Closed { get; set; }
 }
 
 

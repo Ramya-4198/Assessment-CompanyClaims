@@ -9,5 +9,5 @@
 /CompanyClaims/obj
 /.vs
 /CompanyClaims/bin
-/EndpointTests/bin/Debug/net7.0
+/EndpointTests/bin
 /EndpointTests/obj

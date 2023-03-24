@@ -1,17 +1,17 @@
 using CompanyClaims.Endpoints;
+using CompanyClaims.Validators;
 using DataLayer;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddTransient<IClaimsRepository, ClaimsRepository>();
-builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IClaimsRepository,ClaimsRepository>();
 builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(ClaimValidator));
 
 var app = builder.Build();
 

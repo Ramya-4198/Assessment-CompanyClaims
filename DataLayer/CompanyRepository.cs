@@ -15,7 +15,7 @@ namespace DataLayer
                 {
                     Id = i,
                     Address = new Address() { Address1 = $"{i} Insurance Way", Address2 = "Burlough", Country = "United Kingdom", Postcode = $"BL{rand.Next(1,50)} {rand.Next(1,9)}PW" },
-                    IsActive = i % 4 != 0,
+                    Active = i % 4 != 0,
                     Name = $"Company {i} Ltd.",
                     InsuranceEndDate = DateTime.Now.AddDays(rand.Next(-30, 400)),
                 };

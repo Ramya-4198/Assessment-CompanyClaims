@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities;
+﻿using System.Reflection.Metadata.Ecma335;
+using DataLayer.Entities;
 
 namespace CompanyClaims.Mappers;
 
@@ -6,20 +7,33 @@ public static class MapperExtensions
 {
 
     public static ClaimDto ToDto(this Claim claim, Company company, string claimType) 
-        => new ClaimDto(claim.Ucr, claim.CompanyId, claim.ClaimDate,
+        => new(claim.Ucr, claim.CompanyId, claim.ClaimDate,
             claim.LossDate, claim.AssuredName,
-            claim.IncurredLoss, claim.IsClosed, company.Name, claimType);
+            claim.IncurredLoss, claim.Closed, company.Name, claimType,
+            (DateTime.Now.Date - claim.ClaimDate.Date).Days);
 
     private static AddressDto ToDto(this Address address) 
-        => new AddressDto(address.Address1, address.Address2, address.Address3, address.Postcode, address.Country);
+        => new(address.Address1, address.Address2, address.Address3, address.Postcode, address.Country);
 
     public static CompanyDto ToDto(this Company company)
-        => new CompanyDto(company.Id, company.Name, company.Address.ToDto(), company.IsActive,
-            company.InsuranceEndDate);
+        => new(company.Id, company.Name, company.Address.ToDto(), company.Active, company.InsuranceEndDate);
+
+    public static Claim ToEntity(this ClaimDto claimDto) =>
+        new()
+        {
+            AssuredName = claimDto.AssuredName,
+            ClaimDate = claimDto.ClaimDate,
+            ClaimTypeName = claimDto.ClaimType,
+            CompanyId = claimDto.CompanyId,
+            Closed = claimDto.Closed,
+            IncurredLoss = claimDto.IncurredLoss,
+            LossDate = claimDto.LossDate,
+            Ucr = claimDto.Ucr
+        };
 }
 
 public record ClaimDto(string Ucr, int CompanyId, DateTime ClaimDate, DateTime LossDate, string AssuredName,
-    decimal IncurredLoss, bool Closed, string CompanyName, string ClaimType);
+    decimal IncurredLoss, bool Closed, string CompanyName, string ClaimType, int AgeInDays);
 
 
 public record AddressDto(string Address1, string Address2, string Address3, string Postcode, string Country);
