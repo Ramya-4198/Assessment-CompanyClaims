@@ -21,6 +21,7 @@ namespace DataLayer
                 };
             }
         }
+        console.log("hello...");
 
         public Task<Company> GetCompany(int id)
         {
